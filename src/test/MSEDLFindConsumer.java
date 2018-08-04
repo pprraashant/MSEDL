@@ -1,5 +1,7 @@
 package test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import org.openqa.selenium.Alert;
@@ -9,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 class MSEDLFindConsumer
@@ -70,9 +74,20 @@ class MSEDLFindConsumer
 	}
 	public static void initialiseDriver() throws InterruptedException
 	{
-		System.setProperty("webdriver.chrome.driver","/Users/prashantpawar/Documents/Development/Selenium/ChromeDriver");
-		 driver=new ChromeDriver();
+		//Selenium selenium = new DefaultSelenium(“localhost”, 4444, “*firefox”, “http://www.google.com”);
+		//DesiredCapabilities capability = DesiredCapabilities.firefox();
+		DesiredCapabilities capability = DesiredCapabilities.chrome();
+		//System.setProperty("webdriver.chrome.driver","/Users/prashantpawar/Documents/Development/Selenium/ChromeDriver");
+		 //driver=new ChromeDriver();
 		//WebDriver driver1=new FirefoxDriver();
+		
+		//WebDriver driver = null;
+		try {
+			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 			driver.get("https://wss.mahadiscom.in/wss/wss?uiActionName=getViewPayBill");
 			//driver.navigate().to("http:\\www.google.com");
